@@ -26,4 +26,4 @@ find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
 add_executable(autocomplete ${SOURCES})
 
 # Link SFML libraries (note the case for SFML 3)
-target_link_libraries(autocomplete sfml-graphics sfml-window sfml-system)
+target_link_libraries(autocomplete SFML::Graphics SFML::Window SFML::System)
