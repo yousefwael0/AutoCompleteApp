@@ -1,0 +1,10 @@
+program 12
+progress 85
+project 97
+promotion 0
+prototype 30
+process 100
+priority 17
+problem 65
+prediction 5
+proceed 40

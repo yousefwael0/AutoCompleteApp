@@ -1,0 +1,13 @@
+# Ignore build folder
+build/
+
+# Ignore generated executables
+autocomplete
+
+# Ignore Mac system files
+.DS_Store
+
+# Ignore temporary files
+*.o
+*.obj
+*.log
