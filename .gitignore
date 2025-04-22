@@ -7,9 +7,6 @@ autocomplete
 # Ignore Mac system files
 .DS_Store
 
-# vscode
-.vscode/
-
 # Ignore temporary files
 *.o
 *.obj
