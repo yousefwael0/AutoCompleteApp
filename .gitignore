@@ -4,6 +4,10 @@ build/
 # Ignore generated executables
 autocomplete
 
+# vs
+.vscode/
+.vs/
+
 # Ignore Mac system files
 .DS_Store
 
