@@ -8,11 +8,9 @@ using namespace std;
 class FrequencyManager {
 private:
     unordered_map<string, int> frequencyMap;  // Confirmed words + frequency
-    unordered_map<string, int> pendingMap;    // New words pending approval
 
 public:
     FrequencyManager();
-
     void addNewWord(const string& word);                      // Adds new or updates pending
     void increaseFrequency(const string& word);               // Only increases if in confirmed map
     int getFrequency(const string& word) const;               // Returns 0 if not in confirmed
