@@ -11,19 +11,15 @@ void NewWordTracker::recordNewWord(const string& word, Trie& trie, FrequencyMana
 
     if (word.empty()) { return; }
 
-    string lowerWord;
-    lowerWord.reserve(word.size());
-    transform(word.begin(), word.end(), back_inserter(lowerWord), tolower);
+    if (trie.searchExact(word)) { return; }
 
-    if (trie.searchExact(lowerWord)) { return; }
-
-    int currentCount = ++newWordsCount[lowerWord];
+    int currentCount = ++newWordsCount[word];
 
     if (currentCount == INSERT_THRESHOLD) {
-        trie.insert(lowerWord);
-        freqManager.addNewWord(lowerWord);
-        freqManager.increaseFrequency(lowerWord);
-        newWordsCount.erase(lowerWord);
+        trie.insert(word);
+        freqManager.addNewWord(word);
+        freqManager.increaseFrequency(word);
+        newWordsCount.erase(word);
     }
 }
 
