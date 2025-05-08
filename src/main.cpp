@@ -15,7 +15,7 @@ NewWordTracker newWordTracker;
 
 int main() {
     // 1. Load data once from file
-    if (!fileManager.loadData("data/Dictionary.txt", trie, freqManager)) {
+    if (!fileManager.loadData("../data/Dictionary.txt", trie, freqManager)) {
         std::cout << "Failed to load dictionary file. Exiting.\n";
         return 1;
     }
@@ -57,7 +57,7 @@ int main() {
     }
 
     // 5. Save updated data before exiting
-    fileManager.saveData("data/Dictionary.txt", freqManager);
+    fileManager.saveData("../data/Dictionary.txt", freqManager);
 
     std::cout << "Data saved. Goodbye!\n";
     return 0;

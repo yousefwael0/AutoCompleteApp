@@ -4,8 +4,8 @@
 
 using namespace std;
 
-bool FileManager::loadData(const string& filename, Trie& trie, FrequencyManager& freqManager) {// Open file and load into Trie and FrequencyManager
-    
+// Open file and load into Trie and FrequencyManager
+bool FileManager::loadData(const string& filename, Trie& trie, FrequencyManager& freqManager){
     ifstream infile(filename);
     if (!infile.is_open()) {
         return false;
@@ -22,6 +22,7 @@ bool FileManager::loadData(const string& filename, Trie& trie, FrequencyManager&
         }
 
         trie.insert(word);
+        freqManager.addNewWord(word);
 
         freqManager.setFrequency(word, frequency);
     }
