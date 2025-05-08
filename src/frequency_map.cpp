@@ -32,6 +32,16 @@ int FrequencyManager::getFrequency(const string& word) const {
     return 0;
 }
 
+void FrequencyManager::setFrequency(const string &word, int frequency){
+    if(frequencyMap.find(word) != frequencyMap.end()){
+        frequencyMap[word] = frequency;
+    }
+}
+
+const unordered_map<string, int> &FrequencyManager::getMap() const{
+    return frequencyMap;
+}
+
 vector<string> FrequencyManager::sortByFrequency(const vector<string>& words) const {
     vector<string> sortedWords = words;
 

@@ -11,8 +11,10 @@ private:
 
 public:
     FrequencyManager();
-    void addNewWord(const string& word);                      // Adds new or updates pending
-    void increaseFrequency(const string& word);               // Only increases if in confirmed map
-    int getFrequency(const string& word) const;               // Returns 0 if not in confirmed
+    void addNewWord(const string& word); // Adds new or updates pending
+    void increaseFrequency(const string& word); // Only increases if in confirmed map
+    int getFrequency(const string& word) const; // Returns 0 if not in confirmed
+    void setFrequency(const string& word, int frequency);
+    const unordered_map<string, int> &getMap() const;
     vector<string> sortByFrequency(const vector<string>& words) const;  // Sort words by freq
 };
