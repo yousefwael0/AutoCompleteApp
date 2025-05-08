@@ -6,6 +6,7 @@
 
 class NewWordTracker {
 private:
+    const int INSERT_THRESHOLD = 3;
     std::unordered_map<std::string, int> newWordsCount;
 
 public:
