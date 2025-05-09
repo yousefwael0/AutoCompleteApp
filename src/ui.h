@@ -1,9 +1,26 @@
 #pragma once
-#include <vector>
-#include <string>
+
+#include <QMainWindow>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QStringList>
 #include "frequency_map.h"
 
-class UI {
+class UI : public QMainWindow {
+    Q_OBJECT
+
 public:
-    static void displaySuggestions(const std::vector<std::string>& suggestions, const std::string& prefix, const FrequencyManager& freqManager);
+    UI(QWidget* parent = nullptr);
+    ~UI();
+
+private slots:
+    void onTextChanged(const QString& text);
+
+private:
+    QLineEdit* inputField;
+    QListWidget* suggestionList;
+
+    FrequencyManager* freqManager; // Pointer to your frequency manager (passed externally or initialized)
+    
+    void updateSuggestions(const QString& prefix);
 };
