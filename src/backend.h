@@ -22,6 +22,7 @@ public:
     Q_INVOKABLE void addNewWord(const QString &word);
     Q_INVOKABLE void deleteWord(const QString &word);
     Q_INVOKABLE void clearStatus();
+    Q_INVOKABLE void clearSuggestions();
     QStringList suggestions() const;
     QString statusMessage() const;
 

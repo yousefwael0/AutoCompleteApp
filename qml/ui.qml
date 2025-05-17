@@ -7,15 +7,16 @@ import QtQuick.Controls.Basic
 
 ApplicationWindow {
     visible: true
-    width: 420
-    height: 360
+    width: 840
+    height: 720
     title: "AutoComplete App"
     color: "#f7f9fb"
     font.family: "Arial"
     font.pixelSize: 16
+    property string status: backend ? backend.statusMessage : "" // qmllint disable unqualified
 
     onClosing: {
-        backend.saveData("../data/Dictionary.txt");
+        backend.saveData("../data/Dictionary.txt"); // qmllint disable unqualified
     }
 
     ColumnLayout{
@@ -37,17 +38,18 @@ ApplicationWindow {
                 id: modeSelector
                 model: ["Most Frequent First", "Lexicographical", "Shortest First"]
                 currentIndex: 0
-                width: 100
+                Layout.preferredWidth: 180
                 font.pixelSize: 14
 
                 // Customize dropdown list appearance
                 delegate: ItemDelegate {
                     width: parent.width
                     background: Rectangle {
-                        color: hovered ? "#e8f0fe" : "white"
+                        color: hovered ? "#e8f0fe" : "white" // qmllint disable unqualified
+                        border.color: hovered ? "#3a86ff" : "transparent"
                     }
                     contentItem: Text {
-                        text: modelData
+                        text: modelData // qmllint disable unqualified
                         color: "#222"
                         font.pixelSize: 14
                         verticalAlignment: Text.AlignVCenter
@@ -72,7 +74,7 @@ ApplicationWindow {
                     border.width: 1
                     radius: 8
                 }
-                onCurrentIndexChanged: backend.handleInput(inputField.text, currentIndex)
+                onCurrentIndexChanged: backend.handleInput(inputField.text, currentIndex) // qmllint disable unqualified
             }
         }
 
@@ -97,8 +99,20 @@ ApplicationWindow {
                     border.width: 1
                 }
 
-                onTextChanged: backend.handleInput(text, modeSelector.currentIndex)
-
+                onTextChanged: debounceTimer.restart()
+                Timer {
+                    id: debounceTimer
+                    interval: 200
+                    repeat: false
+                    onTriggered: {
+                        if (inputField.text.trim() !== "") {
+                            backend.handleInput(inputField.text, modeSelector.currentIndex)
+                        } else {
+                            backend.clearStatus()
+                            backend.clearSuggestions()
+                        }
+                    }
+                }
                 Keys.onPressed: event => {
                     if (event.key === Qt.Key_Down) {
                         if (suggestionView.count > 0)
@@ -111,7 +125,7 @@ ApplicationWindow {
                     } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                         if (suggestionView.count > 0) {
                             inputField.text = suggestionView.model[suggestionView.currentIndex]
-                            backend.handleInput(inputField.text, modeSelector.currentIndex)
+                            backend.handleInput(inputField.text, modeSelector.currentIndex) // qmllint disable unqualified
                             suggestionView.currentIndex = -1
                         }
                         event.accepted = true
@@ -132,7 +146,7 @@ ApplicationWindow {
                     font.pixelSize: 14
                     anchors.centerIn: parent
                 }
-                onClicked: backend.addNewWord(inputField.text)
+                onClicked: backend.addNewWord(inputField.text) // qmllint disable unqualified
             }
 
             Button {
@@ -148,31 +162,37 @@ ApplicationWindow {
                     font.pixelSize: 14
                     anchors.centerIn: parent
                 }
-                onClicked: backend.deleteWord(inputField.text)
+                onClicked: backend.deleteWord(inputField.text) // qmllint disable unqualified
             }
         }
 
         Label {
-            Timer {
-                id: statusClearTimer
-                interval: 2500 // 2.5 seconds
-                repeat: false
-                onTriggered: backend.clearStatus()
-            }
-            property string status: backend ? backend.statusMessage : ""
             text: status
-            visible: status !== ""
+            visible: status !== "" && inputField.text !== ""
             color: status.startsWith("Invalid") ? "#d90429"
-                  : status.startsWith("New word") ? "#2b9348"
-                  : "#555"
+                : status.startsWith("Word Deleted") ? "#d90429"
+                : status.startsWith("New word") ? "#2b9348"
+                : "#555"
             font.pixelSize: 14
             wrapMode: Text.WordWrap
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
 
-            onStatusChanged: {
-                    if (status !== "")
-                        statusClearTimer.start()
+            Timer {
+                id: statusClearTimer
+                interval: 2500
+                repeat: false
+                onTriggered: backend.clearStatus()
+            }
+
+            Component.onCompleted: {
+                if (status !== "")
+                    statusClearTimer.start()
+            }
+
+            onTextChanged: function(newText) {
+                if (newText !== "")
+                    statusClearTimer.restart()
             }
         }
 
@@ -187,7 +207,7 @@ ApplicationWindow {
             ListView {
                 id: suggestionView
                 anchors.fill: parent
-                model: backend ? backend.suggestions : []
+                model: backend ? backend.suggestions : [] // qmllint disable unqualified
                 clip: true
                 interactive: true
                 currentIndex: 0
@@ -207,12 +227,12 @@ ApplicationWindow {
                         hoverEnabled: true
                         onEntered: parent.hovered = true
                         onExited: parent.hovered = false
-                        onClicked: inputField.text = modelData
+                        onClicked: inputField.text = modelData // qmllint disable unqualified
                     }
 
                     Text {
                         anchors.centerIn: parent
-                        text: modelData
+                        text: modelData // qmllint disable unqualified
                         color: "#333"
                         font.pixelSize: 15
                     }

@@ -14,6 +14,13 @@ void Backend::saveData(const QString &filename)
 void Backend::handleInput(const QString &text, int searchMode) {
     std::string input = inputHandler.sanitizeInput(text.toStdString());
 
+    if (input.empty()) {
+        // Clear suggestions and status for empty input, no error message
+        emit suggestionsChanged();
+        emit statusMessageChanged();
+        return;
+    }
+
     m_suggestions.clear();
     m_statusMessage.clear();
 
@@ -83,6 +90,11 @@ void Backend::clearStatus()
 {
     m_statusMessage.clear();
     emit statusMessageChanged();
+}
+
+void Backend::clearSuggestions(){
+    m_suggestions.clear();
+    emit suggestionsChanged();
 }
 
 QStringList Backend::suggestions() const {

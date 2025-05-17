@@ -12,6 +12,7 @@ autocomplete
 .qtcreator/
 *.qtcreator
 *.ini
+*.cache
 
 # Ignore Mac system files
 .DS_Store
