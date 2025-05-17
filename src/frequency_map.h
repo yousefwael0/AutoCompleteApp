@@ -12,6 +12,7 @@ private:
 public:
     FrequencyManager();
     void addNewWord(const string& word); // Adds new or updates pending
+    void deleteWord(const string& word); // Deleted a word
     void increaseFrequency(const string& word); // Only increases if in confirmed map
     int getFrequency(const string& word) const; // Returns 0 if not in confirmed
     void setFrequency(const string& word, int frequency);

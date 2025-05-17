@@ -11,10 +11,17 @@ FrequencyManager::FrequencyManager() {
 void FrequencyManager::addNewWord(const string& word) {
     // Already confirmed? Do nothing
     if (frequencyMap.find(word) != frequencyMap.end()) {
-        cout << " Word already added";
+        cout << " Word already added\n";
         return;
     }
-    frequencyMap[word] = 0;
+    frequencyMap[word] = 1;
+}
+
+void FrequencyManager::deleteWord(const string &word)
+{
+    if(frequencyMap.erase(word) == 0){
+        cout << " Word not in dictionary\n";
+    }
 }
 
 void FrequencyManager::increaseFrequency(const string& word) {

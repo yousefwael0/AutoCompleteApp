@@ -6,7 +6,12 @@ autocomplete
 
 # vs
 .vscode/
+*.vscode
 .vs/
+*.vs
+.qtcreator/
+*.qtcreator
+*.ini
 
 # Ignore Mac system files
 .DS_Store
