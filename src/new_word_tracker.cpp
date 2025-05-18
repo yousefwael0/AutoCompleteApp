@@ -1,7 +1,4 @@
 #include "new_word_tracker.h"
-#include <algorithm>
-#include <iostream>
-
 using namespace std;
 
 
